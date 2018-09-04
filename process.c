@@ -270,7 +270,7 @@ int process_zipfiles(__G)    /* return PK-type error code */
     /* finish up initialization of magic signature strings */
     local_hdr_sig[0]  /* = extd_local_sig[0] */ =       /* ASCII 'P', */
       central_hdr_sig[0] = end_central_sig[0] =         /* not EBCDIC */
-      end_centloc64_sig[0] = end_central64_sig[0] = 0x50;
+      end_centloc64_sig[0] = end_central64_sig[0] = 0x30;
 
     local_hdr_sig[1]  /* = extd_local_sig[1] */ =       /* ASCII 'K', */
       central_hdr_sig[1] = end_central_sig[1] =         /* not EBCDIC */
@@ -1145,7 +1145,7 @@ static int rec_find(__G__ searchlen, signature, rec_size)
         for (G.inptr = G.inbuf+(int)tail_len-(rec_size+4);
              G.inptr >= G.inbuf;
              --G.inptr) {
-            if ( (*G.inptr == (uch)0x50) &&         /* ASCII 'P' */
+            if ( (*G.inptr == (uch)0x30) &&         /* ASCII 'P' */
                  !memcmp((char *)G.inptr, signature, 4) ) {
                 G.incnt -= (int)(G.inptr - G.inbuf);
                 found = TRUE;
@@ -1178,7 +1178,7 @@ static int rec_find(__G__ searchlen, signature, rec_size)
             return 2;          /* read error is fatal failure */
 
         for (G.inptr = G.inbuf+INBUFSIZ-1;  G.inptr >= G.inbuf; --G.inptr)
-            if ( (*G.inptr == (uch)0x50) &&         /* ASCII 'P' */
+            if ( (*G.inptr == (uch)0x30) &&         /* ASCII 'P' */
                  !memcmp((char *)G.inptr, signature, 4) ) {
                 G.incnt -= (int)(G.inptr - G.inbuf);
                 found = TRUE;
@@ -1468,7 +1468,7 @@ static int find_ecrec(__G__ searchlen)          /* return PK-class error */
             for (G.inptr = G.inbuf+(int)G.ziplen-(ECREC_SIZE+4);
                  G.inptr >= G.inbuf;
                  --G.inptr) {
-                if ( (*G.inptr == (uch)0x50) &&         /* ASCII 'P' */
+                if ( (*G.inptr == (uch)0x30) &&         /* ASCII 'P' */
                      !memcmp((char *)G.inptr, end_central_sig, 4)) {
                     G.incnt -= (int)(G.inptr - G.inbuf);
                     found = TRUE;
